@@ -1,0 +1,78 @@
+<style>
+    
+  /* Set the height of the slider section to 60vh (60% of viewport height) */
+  .home-cover {
+    height: 70vh;
+    position: relative; /* Add position: relative to the section for proper positioning */
+    overflow: hidden; /* Optional: Hide any content that might overflow */
+
+  }
+
+  /* Set the height of the slider content to 100% of the parent's height */
+  .cover_slider,
+  .cover_item,
+  .slider_content,
+  .slider-content-inner {
+    height: 100%;
+  }
+  .cover_slider .cover_item .slider_content .slider-content-inner {
+    vertical-align: initial;
+}
+</style>
+
+
+<section id="home" class="home-cover">
+    <div class="cover_slider owl-carousel owl-theme">
+        {%for slide in slider_items %}
+        <div class="cover_item" style="background-image: url(/media/{{slide.background_image}});">
+            <div class="slider_content">
+                <div class="slider-content-inner">
+                    <div class="container">
+                        <div class="slider-content-center">
+                            <h2 class="cover-title">
+                                {{ slide.title }}
+                            </h2>
+                            <strong class="cover-xl-text">{{ slide.subtitle }}</strong>
+                            <p class="cover-date">
+                                {{ slide.date_text }}
+                            </p>
+                            <a href="{{ slide.button_link }}" class=" btn btn-primary btn-rounded">
+                                {{ slide.button_text }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+    <div class="cover_nav">
+        <ul class="cover_dots">
+            <li class="active" data="0"><span>1</span></li>
+            <li data="1"><span>2</span></li>
+            <li data="2"><span>3</span></li>
+        </ul>
+    </div>
+</section>
+<!-- Informatiom Slider -->
+<section class="pt100 pb100">
+    <div class="container">
+        <div class="row justify-content-center">
+            {% for event in events %}
+            <div class="col-6 col-md-3">
+                <div class="icon_box_two">
+                    <i class="{{ event.title }}"></i>
+                    <div class="content">
+                        <h5 class="box_title">
+                            {{ event.get_title_display }}
+                        </h5>
+                        <p>
+                            {{ event.content }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

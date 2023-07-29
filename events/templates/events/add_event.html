@@ -1,0 +1,68 @@
+<!-- events/templates/events/add_event.html -->
+<style>
+    header{
+    background: #333333;
+}
+.fixed-top{
+    position: inherit!important;
+}
+.btn{
+    padding: 10px!important;
+}
+</style>
+{% extends 'events/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h1 class="text-center">Add Event</h1>
+            {% if submitted %}
+            <div class="alert alert-success" role="alert">
+                Your Event was Submitted Successfully
+            </div>
+            {% endif %}
+            <form action="" method="POST" class="event-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="{{ form.name.id_for_label }}">Event Name</label>
+                    {{ form.name }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.event_date.id_for_label }}">Event Date</label>
+                    {{ form.event_date }}
+                </div>
+                <div class="title">
+                    <label for="{{ form.venue.id_for_label }}" >Venue</label>
+                </div>
+                <div class="input-group mb-3">
+                    {{ form.venue }}
+                    <a href="{% url 'add-venue' %}" class="btn btn-outline-secondary" type="button" id="button-addon2">Add Another Venue</a>
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.manager.id_for_label }}">Manager</label>
+                    {{ form.manager }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.description.id_for_label }}">Description</label>
+                    {{ form.description }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.categories.id_for_label }}">Categories</label>
+                    {{ form.categories }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.speakers.id_for_label }}">Speakers</label>
+                    {{ form.speakers }}
+                </div>
+                <input type="submit" value="Submit" class="btn btn-secondary">
+            </form>
+        </div>
+    </div>
+</div>
+
+    {% if submitted %}
+    <script src="{% static 'js/timeout_msg_success.js' %}"></script>
+    {% endif %}
+{% endblock %}

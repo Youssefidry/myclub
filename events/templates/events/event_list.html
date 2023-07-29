@@ -1,0 +1,110 @@
+
+{% extends 'events/base.html' %}
+{% load static %}
+{% block content %}
+
+
+{% include 'events/navbar.html' %}
+{% include 'events/cover_slider.html' %}
+<link rel="stylesheet" href="{% static 'css/event-list.css' %}">
+<script src="https://kit.fontawesome.com/a2f2a18d36.js" crossorigin="anonymous"></script>
+<style>
+  .gray-300 {
+    margin-bottom: 50px;
+}
+</style>
+
+<div class="event-area gray-300">
+  <div class="container position-relative pt-110">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="background-title text-style-one">
+          <h2>EVENT</h2>
+        </div>
+        <div class="section-head">
+          <h5>Event</h5>
+          <h3>Popular Event</h3>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="event-category-buttons d-flex justify-content-center">
+          <ul class="nav nav-pills mb-3" id="events-tab" role="tablist">
+            {% for category in List_Categorie %}
+            <li class="nav-item" role="presentation">
+              <button id="pills-tab{{ category.pk }}" class="nav-link {% if forloop.first %}active{% endif %}"
+                data-bs-toggle="pill" data-bs-target="#pills-event{{ category.pk }}" type="button" role="tab"
+                aria-controls="pills-event{{ category.pk }}"
+                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+                {{ category.N_categorie }}
+                <span>{{ category.event_set.count }}</span>
+              </button>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-12">
+      <div class="all-event-cards">
+        <div class="tab-content" id="events-tabContent">
+          {% for category in List_Categorie %}
+          <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="pills-event{{ category.pk }}"
+            role="tabpanel" aria-labelledby="pills-tab{{ category.pk }}">
+            <div class="row">
+              {% for event in category.event_set.all %}
+              <div class="col-lg-4 col-md-4 wow fadeInUp animated" data-wow-delay="200ms" data-wow-duration="1500ms">
+                <div class="event-card-md">
+                  <!-- Your event card content here -->
+                  <!-- Use event attributes like event.event_date, event.venue, event.description, etc. -->
+                  <div class="event-thumb">
+                    <img src="{% static 'img/event/ev-md1.png' %}" alt="">
+                    <div class="event-lavel">
+                      <i class="bi bi-diagram-3"></i> <span>500 Seat</span>
+                    </div>
+                  </div>
+                  <div class="event-content">
+                    <div class="event-info">
+                      <div class="event-date"><a href="#"> <i class="bi bi-calendar2-week"></i>{{ event.event_date }}</a>
+                      </div>
+                      <div class="event-location"><a href="#"> <i class="bi bi-geo-alt"></i>{{ event.venue }}</a>
+                      </div>
+                    </div>
+                    <h5 class="event-title"><a href="event-details.html">{{ event.description }}</a></h5>
+                    <div class="event-bottom">
+                      <div class="event-readme">
+                        <a href="event-details.html">Book Now</a>
+                      </div>
+                      <div class="event-share-icons">
+                        <ul class="share-options">
+                          <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                          <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                          <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                          <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        </ul>
+                        <div class="share-btn"><i class="bi bi-share"></i></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+<script>
+  // JavaScript code to set the first link as active on page load
+  document.addEventListener("DOMContentLoaded", function() {
+    const firstTabButton = document.querySelector("#pills-tab1");
+    firstTabButton.classList.add("active");
+  });
+</script>
